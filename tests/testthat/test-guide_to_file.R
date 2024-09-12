@@ -1,32 +1,38 @@
-test_that("guide_to_file finds file in the specified folder", {
-  temp_dir <- tempdir()
-  temp_file <- file.path(temp_dir, "data", "test_file.txt")
+test_that("file-related functions work with mock directory", {
 
-  # Create a temp 'data' folder and a file
-  dir.create(file.path(temp_dir, "data"))
-  writeLines("test content", temp_file)
+  # Define the directory structure
+  mock_structure <- list(
+    "data" = list(
+      "myfile.txt" = TRUE
+    ),
+    "backup_data" = list(
+      "myfile_2.txt" = TRUE
+    ),
+    "scripts" = list(
+      "func" = list(
+        "foo.R" = TRUE,
+        "bar.R" = TRUE
+      ),
+      "helper" = list(
+        "foofy_bar.R" = TRUE,
+        "foo_helper" = list(
+          "foofy.R" = TRUE
+        )
+      )
+    )
+  )
 
-  # Test if function correctly finds the file
-  result <- guide_to_file("test_file.txt", folder = "data")
-  expect_true(file.exists(result))
+  # Create the directory and get the mock_here function
+  mock_env <- create_mock_dir(mock_structure)
+  mock_here <- mock_env$here
 
-  unlink(temp_dir, recursive = TRUE)
-})
+  # Now you can use mock_here like this:
+  expect_true(file.exists(mock_here("data", "myfile.txt")))
+  expect_true(file.exists(mock_here("scripts", "func", "foo.R")))
 
-test_that("guide_to_file stops if file is not found", {
-  expect_error(guide_to_file("nonexistent_file.txt", folder = "data"),
-               "File not found")
-})
+  # Test your guide_to_file function
+  expect_equal(normalizePath(guide_to_file("myfile.txt", folder = "data"), winslash = "/"),
+               normalizePath(mock_here("data", "myfile.txt"), winslash = "/"))
 
-test_that("guide_to_file prompts for folder selection when multiple folders are found", {
-  temp_dir <- tempdir()
-
-  # Create multiple 'data' folders
-  dir.create(file.path(temp_dir, "data_1"))
-  dir.create(file.path(temp_dir, "data_2"))
-  dir.create(file.path(temp_dir, "data_3"))
-
-  expect_error(guide_to_file("test_file.txt", folder = "data"), "folder not found")
-
-  unlink(temp_dir, recursive = TRUE)
+  expect_error(guide_to_file("nonexistent.txt", folder = "data"), "File not found in the 'data' folder")
 })

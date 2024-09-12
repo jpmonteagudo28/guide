@@ -32,7 +32,7 @@ guide_to_file <- function(file,...){
   args <- list(...)
   folder <- if ("folder" %in% names(args)) args$folder else "data"
 
-  root_dir <- here::here()
+  root_dir <- getwd()
 
   renv_exists <- dir.exists(file.path(root_dir,"renv"))
   dirs <- list.dirs(root_dir, full.names = TRUE, recursive = TRUE)
@@ -48,22 +48,18 @@ guide_to_file <- function(file,...){
   }
 
   if (length(target_dirs) > 1) {
-    cat("Multiple '", folder, "' folders found:\n", sep = "")
-    for (i in seq_along(target_dirs)) {
-      cat(i, ": ", target_dirs[i], "\n", sep = "")
-    }
-    choice <- as.integer(readline(prompt = paste("Enter the number of the '", folder,
-                                                 "' folder you want to use: ", sep = "")))
 
-    if (is.na(choice) || choice < 1 || choice > length(target_dirs)) {
-      stop("Invalid selection")
-    }
-    target_dir <- target_dirs[choice]
-  } else {
+    # Automatically choose the first folder and notify the user
     target_dir <- target_dirs[1]
+
+    message("Multiple '", folder,
+            "' folders found. Automatically selecting the first one: ",
+            target_dir)
+  } else {
+    target_dir <- target_dirs
   }
 
-  file_path <- here::here(target_dir,file)
+  file_path <- file.path(target_dir,file)
 
   if(!file.exists(file_path)){
     stop(paste("File not found in the '", folder, "' folder", sep = ""))
