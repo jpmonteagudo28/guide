@@ -1,11 +1,27 @@
 Package: guide
-Type: Package
-Title: What the Package Does (Title Case)
+Title: A simple way to add, change or update your file or drectory
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Authors@R: 
+    person("JP", "Monteagudo",
+    email = "jpmonteagudo2014@gmail.com", 
+    role = c("aut", "cre","cph"),
+           comment = c(ORCID = "0009-0003-6465-6658"))
+Maintainer: The package maintainer <jpmonteagudo2014@gmail.com>
+Description: Point R to a file's relative path within your project with 'guide_to_file'.
+    Use the 'guide_to_parent' function to move up any number of levels within your project.
+    Use the `guide_to_child` function to move down to a specified directory or to create a new directory.
+License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
+URL: https://github.com/jpmonteagudo28/guide
+BugReports: https://github.com/jpmonteagudo28/guide/issues
+Imports: 
+    here (>= 1.0.1),
+    jsonlite (>= 1.8.8),
+    openxlsx (>= 4.2.7),
+    xml2 (>= 1.3.6),
+    zip (>= 2.3.1)
+RoxygenNote: 7.3.2
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

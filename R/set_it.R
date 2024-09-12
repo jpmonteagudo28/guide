@@ -1,3 +1,30 @@
+#' @title
+#' Guide to File Location in Specific Folders
+#'
+#' @description
+#' This function locates a file within a specified folder in the current project directory or its subdirectories.
+#' It can search across multiple folders and prompt the user to select a folder if multiple folders with the specified name are found.
+#'
+#' @param file A character string specifying the name of the file to be located.
+#' @param ... Additional arguments to specify options such as the folder name. The default folder is `"data"`.
+#'
+#' @details
+#' This function searches for a specified file within a folder and its sub-directories. If multiple folders
+#' matching the specified name exist, the user is prompted to select one. If no folder is found or if the file does not exist
+#' in the chosen folder, an error is returned.
+#'
+#' @return A character string representing the file path if the file is found. An error is thrown if the file is not found.
+#'
+#' @examples
+#' \dontrun{
+#' # Locate a file named "data.csv" in the "data" folder
+#' guide::guide_to_file("data.csv", folder = "data")
+#'
+#' # Locate a file named "results.txt" in the default "data" folder
+#' guide::guide_to_file("results.txt")
+#' }
+#'
+#' @export
 guide_to_file <- function(file,...){
 
   stopifnot(is.character(file))
@@ -43,78 +70,4 @@ guide_to_file <- function(file,...){
   }
 
   return(file_path)
-}
-
-
-guide_to_parent <- function(current_dir = getwd(), levels_up = 1) {
-
-  # If current_dir is  folder name, check if it exists in current working directory
-  if (!grepl("^/", current_dir) && !grepl("^[A-Za-z]:", current_dir)) {
-    current_wd <- getwd()
-
-    # Check if current_dir same as last part of the current working directory
-    if (basename(current_wd) == current_dir) {
-      current_dir <- current_wd
-    } else {
-      potential_dir <- file.path(current_wd, current_dir)
-
-      # Check if this potential path exists, if so, use it
-      if (dir.exists(potential_dir)) {
-        current_dir <- potential_dir
-      } else {
-        stop("The specified directory does not exist: ", current_dir)
-      }
-    }
-  }
-
-  # Normalize the path
-  cd <- try(normalizePath(current_dir, mustWork = TRUE), silent = TRUE)
-
-  if (inherits(cd, "try-error")) {
-    stop("Unable to find or access the directory: ", current_dir)
-  }
-
-  # Traverse up the directory tree by the specified number of levels
-  for (i in seq_len(levels_up)) {
-    parent_dir <- dirname(cd)
-    if (parent_dir == cd) {
-      warning("Reached the root directory. Cannot go up further.")
-      break
-    }
-    cd <- parent_dir
-  }
-
-  # Set the new directory
-  setwd(cd)
-  message("Working directory set to: ", cd)
-
-  # Return the new working directory
-  invisible(cd)
-}
-
-#> Create function to set working directory to a child directory
-guide_to_child <- function(child_dir, create = FALSE){
-
-  current_wd <- getwd()
-
-  new_dir <- file.path(current_wd, child_dir)
-
-  # Check if the directory exists
-  if (dir.exists(new_dir)) {
-    # If it exists, set it as the working directory
-    setwd(new_dir)
-    message("Working directory set to: ", new_dir)
-  } else if (create) {
-    # If it doesn't exist and create is TRUE, create the directory
-    dir.create(new_dir, recursive = TRUE)
-    setwd(new_dir)
-    message("Created and set working directory to: ", new_dir)
-  } else {
-    # If it doesn't exist and create is FALSE, throw an error
-    stop("The specified directory does not exist: ", new_dir,
-         "\nUse create = TRUE to create the directory if it doesn't exist.")
-  }
-
-  # Return the new working directory invisibly
-  invisible(new_dir)
 }
