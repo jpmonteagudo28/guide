@@ -31,8 +31,10 @@ Supported formats include:
 - **.rds**: Saves as an RDS file.
 - **.xlsx**: Saves as an Excel file (requires the `openxlsx` package).
 - **.json**: Saves as a JSON file (requires the `jsonlite` package).
-- **.xml**: Saves as an XML file (requires the `xml2` package). Only accepts list input.
 - **.zip**: Compresses and saves as a zip archive, with the object saved as a temporary `.txt` file inside.
+- **.sav**: Saves as a SPSS .sav file
+- **.sas7bdat**: Saves as SAS file
+- **.dta**: Saves as a Stata .dta file
 
 If the necessary packages for certain formats are not installed, the function will stop and prompt the user to install the required package.
 }

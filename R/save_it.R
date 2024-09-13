@@ -19,8 +19,10 @@
 #' - **.rds**: Saves as an RDS file.
 #' - **.xlsx**: Saves as an Excel file (requires the `openxlsx` package).
 #' - **.json**: Saves as a JSON file (requires the `jsonlite` package).
-#' - **.xml**: Saves as an XML file (requires the `xml2` package). Only accepts list input.
 #' - **.zip**: Compresses and saves as a zip archive, with the object saved as a temporary `.txt` file inside.
+#' - **.sav**: Saves as a SPSS .sav file
+#' - **.sas7bdat**: Saves as SAS file
+#' - **.dta**: Saves as a Stata .dta file
 #'
 #' If the necessary packages for certain formats are not installed, the function will stop and prompt the user to install the required package.
 #'
@@ -59,7 +61,7 @@ save_as <- function(object, file , sep = " ", na_strings = TRUE){
       utils::write.table(object,file, sep = sep, na = na_string,row.names = FALSE,col.names = TRUE)
     },
     "csv" = {
-      utils::write.csv(object,file, sep = sep, na = na_string, row.names = FALSE)
+      utils::write.table(object,file, sep = sep, na = na_string, row.names = FALSE)
     },
     "rds" = {
       saveRDS(object,file)
@@ -72,27 +74,34 @@ save_as <- function(object, file , sep = " ", na_strings = TRUE){
     },
     "json" = {
       if (!requireNamespace("jsonlite", quietly = TRUE)) {
-        stop("'jsonlite' package is required but not installed")
+        stop("'jsonlite' package required but not installed")
       }
       jsonlite::write_json(object,path = file,na = "null", pretty = TRUE)
     },
-    "xml" = {
-      if(!requireNamespace("xml2", quietly = TRUE)) {
-        stop("'xml2' package is required but not installed")
-      }
-      if (!is.data.frame(object)) {
-        stop("XML format requires a list input")
-      }
-      object <- as.list(object)
-      xml <- xml2::as_xml_document(object)
-      xml2::write_xml(xml,file)
-    },
     "zip" = {
       temp_file <- tempfile(fileext = paste0(".",tools::file_ext(sub("\\.zip$","",file))))
-      utils::write.table(object,temp_file,sep = sep,na.strings = na_string)
+      utils::write.table(object,temp_file,sep = sep,na = na_string)
       zip::zipr(file,files = temp_file)
 
       unlink(temp_file)
+    },
+    "sav" = {
+      if(!requireNamespace("haven", quietly = TRUE)) {
+        stop("'haven' package required but not installed.")
+      }
+      haven::write_sav(object, file)
+    },
+    "sas7bdat" = {
+      if(!requireNamespace("haven", quietly = TRUE)) {
+        stop("'haven' package required but not installed.")
+      }
+      haven::write_xpt(object, file)
+    },
+    "dta" = {
+      if(!requireNamespace("haven", quietly = TRUE)) {
+        stop("'haven' package required but not installed")
+      }
+      haven::write_dta(object, file)
     },
     stop(paste("Unsupported file format:", file_ext))
   )

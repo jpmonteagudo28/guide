@@ -16,10 +16,10 @@ LazyData: true
 URL: https://github.com/jpmonteagudo28/guide
 BugReports: https://github.com/jpmonteagudo28/guide/issues
 Imports: 
+    haven (>= 2.5.4),
     jsonlite (>= 1.8.8),
     openxlsx (>= 4.2.7),
     tools (>= 4.4.1),
-    xml2 (>= 1.3.6),
     zip (>= 2.3.1)
 RoxygenNote: 7.3.2
 Suggests: 
