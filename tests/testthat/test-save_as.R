@@ -30,27 +30,30 @@ test_that("save_as works with different formats", {
   expect_equal(readRDS(rds_file)$Name[2], "Bob")
 
   # Test for .xlsx file (skip if package not installed)
-  if (requireNamespace("openxlsx", quietly = TRUE)) {
+    testthat::skip_if_not_installed("openxlsx")
     xlsx_file <- file.path(temp_dir, "data.xlsx")
     save_as(mock_df, xlsx_file)
     expect_true(file.exists(xlsx_file))
     wb <- openxlsx::loadWorkbook(xlsx_file)
     expect_equal(openxlsx::read.xlsx(wb)$Name[2], "Bob")
-  }
+
 
   # Test for .json file (skip if package not installed)
-  if (requireNamespace("jsonlite", quietly = TRUE)) {
+    testthat::skip_if_not_installed("jsonlite")
     json_file <- file.path(temp_dir, "data.json")
     save_as(mock_df, json_file)
     expect_true(file.exists(json_file))
     json_content <- jsonlite::fromJSON(json_file)
     expect_equal(json_content$Name[1], "Alice")
-  }
+
 
   # Test for .zip file
   zip_file <- file.path(temp_dir,"data.zip")
   save_as(mock_df, zip_file)
   expect_true(file.exists(zip_file))
+
+
+  testthat::skip_if_not_installed("haven")
 
   # Test for .sav (SPSS) format
   sav_file <- file.path(temp_dir, "data.sav")
