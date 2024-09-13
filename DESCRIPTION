@@ -1,12 +1,12 @@
-Package: guide
-Title: A simple way to add, change or update your file or drectory
+Package: guides
+Title: A Simple Way to Add, Change or Update your File or Drectory
 Version: 0.1.0
 Authors@R: 
     person("JP", "Monteagudo",
     email = "jpmonteagudo2014@gmail.com", 
     role = c("aut", "cre","cph"),
            comment = c(ORCID = "0009-0003-6465-6658"))
-Maintainer: The package maintainer <jpmonteagudo2014@gmail.com>
+Maintainer: JP Monteagudo <jpmonteagudo2014@gmail.com>
 Description: Point R to a file's relative path within your project with 'guide_to_file'.
     Use the 'guide_to_parent' function to move up any number of levels within your project.
     Use the `guide_to_child` function to move down to a specified directory or to create a new directory.

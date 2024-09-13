@@ -18,10 +18,10 @@
 #' @examples
 #' \dontrun{
 #' # Locate a file named "data.csv" in the "data" folder
-#' guide::guide_to_file("data.csv", folder = "data")
+#' guides::guide_to_file("data.csv", folder = "data")
 #'
 #' # Locate a file named "results.txt" in the default "data" folder
-#' guide::guide_to_file("results.txt")
+#' guides::guide_to_file("results.txt")
 #' }
 #'
 #' @export

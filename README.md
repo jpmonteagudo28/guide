@@ -1,12 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# guide <img src="man/figures/logo.png" align="right" height="165"/>
+# guides <img src="man/figures/logo.png" align="right" height="165"/>
 
 <!-- badges: start -->
 
 [![CRAN
-status](https://www.r-pkg.org/badges/version/guide)](https://CRAN.R-project.org/package=guide)
+status](https://www.r-pkg.org/badges/version/guides)](https://CRAN.R-project.org/package=guides)
 [![Codecov test
 coverage](https://codecov.io/gh/jpmonteagudo28/guide/graph/badge.svg)](https://app.codecov.io/gh/jpmonteagudo28/guide)
 <!-- badges: end -->
@@ -20,7 +20,7 @@ You can install the development version of guide from
 
 ``` r
 # install.packages("pak")
-pak::pak("jpmonteagudo28/guide")
+pak::pak("jpmonteagudo28/guides")
 ```
 
 ## Example
@@ -28,6 +28,6 @@ pak::pak("jpmonteagudo28/guide")
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-#library(guide)
+#library(guides)
 ## basic example code
 ```

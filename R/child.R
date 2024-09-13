@@ -18,10 +18,10 @@
 #' @examples
 #' \dontrun{
 #' # Move to a child directory named "project"
-#' guide::guide_to_child("project")
+#' guides::guide_to_child("project")
 #'
 #' # Move to a child directory and create it if it doesn't exist
-#' guide::guide_to_child("project", create = TRUE)
+#' guides::guide_to_child("project", create = TRUE)
 #' }
 #'
 #' @export

@@ -31,16 +31,16 @@
 #' @examples
 #' \dontrun{
 #' # Save a data frame as a CSV file
-#' guide::save_as(mtcars, "mtcars.csv")
+#' guides::save_as(mtcars, "mtcars.csv")
 #'
 #' # Save an object as an RDS file
-#' guide::save_as(mtcars, "mtcars.rds")
+#' guides::save_as(mtcars, "mtcars.rds")
 #'
 #' # Save a data frame as an Excel file
-#' guide::save_as(mtcars, "mtcars.xlsx")
+#' guides::save_as(mtcars, "mtcars.xlsx")
 #'
 #' # Save a data frame as a JSON file
-#' guide::save_as(mtcars, "mtcars.json")
+#' guides::save_as(mtcars, "mtcars.json")
 #' }
 #'
 #' @export

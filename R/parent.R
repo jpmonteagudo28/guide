@@ -19,10 +19,10 @@
 #' @examples
 #' \dontrun{
 #' # Move up one level in the directory tree
-#' guide::guide_to_parent()
+#' guides::guide_to_parent()
 #'
 #' # Move up two levels in the directory tree
-#' guide::guide_to_parent(levels_up = 2)
+#' guides::guide_to_parent(levels_up = 2)
 #' }
 #'
 #' @export
