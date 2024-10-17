@@ -1,5 +1,5 @@
 Package: guides
-Title: A Simple Way to Add, Change or Update your File or Drectory
+Title: A Simple Way to Add, Change or Update your File or Directory
 Version: 0.1.0
 Authors@R: 
     person("JP", "Monteagudo",
